@@ -31,14 +31,16 @@ public class SpringBootActuatorMetricsHttpClientRequestsDisabledTests {
 
 	@Test
 	public void test() {
-		ResponseEntity<Map> responseEntity = this.restTemplate.exchange("/actuator/metrics/http.client.requests", HttpMethod.GET, null, Map.class);
-		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+		ResponseEntity<String> responseEntity = this.restTemplate.exchange("/prometheus", HttpMethod.GET, null, String.class);
+		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+		assertThat(responseEntity.getBody()).doesNotContain("http_client_requests");
 
 		Map<String, Object> response = this.restTemplate.getForObject("/sample/call-rest-template", Map.class);
 		assertThat((Map<String, Object>) response.get("build")).containsEntry("artifact", "spring-io");
 		
-		responseEntity = this.restTemplate.exchange("/actuator/metrics/http.client.requests", HttpMethod.GET, null, Map.class);
-		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+		responseEntity = this.restTemplate.exchange("/prometheus", HttpMethod.GET, null, String.class);
+		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+		assertThat(responseEntity.getBody()).doesNotContain("http_client_requests");
 	}
 
 }
