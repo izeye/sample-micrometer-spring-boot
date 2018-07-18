@@ -26,7 +26,7 @@ public class SampleController {
 	@Autowired
 	private PrometheusMeterRegistry registry;
 
-	private final Map<String, String> _strings = new ConcurrentHashMap<>();;
+	private final Map<String, String> _strings = new ConcurrentHashMap<>();
 
 	@PostConstruct
 	public void init() {
