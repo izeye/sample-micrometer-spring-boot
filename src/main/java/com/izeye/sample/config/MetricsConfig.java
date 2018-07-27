@@ -4,25 +4,33 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tag;
-import io.micrometer.core.instrument.config.MeterFilter;
 
 /**
  * Configuration for metrics.
  *
  * @author Johnny Lim
  */
-@Configuration
+@Component
 @EnableConfigurationProperties(MyMetricsProperties.class)
 public class MetricsConfig {
 
-	@Bean
-	public MeterFilter commonTagsMeterFilter(MyMetricsProperties properties) {
-		return MeterFilter.commonTags(createCommonTags(properties.getTags()));
+	@Autowired
+	private MyMetricsProperties properties;
+
+	@Autowired
+	private MeterRegistry meterRegistry;
+
+	@PostConstruct
+	public void initialize() {
+		this.meterRegistry.config().commonTags(createCommonTags(this.properties.getTags()));
 	}
 
 	private List<Tag> createCommonTags(Map<String, String> tags) {
