@@ -22,7 +22,6 @@ public class MetricsConfig {
 
 	@Bean
 	public MeterFilter commonTagsMeterFilter(MyMetricsProperties properties) {
-		System.out.println(properties.getTags());
 		return MeterFilter.commonTags(createCommonTags(properties.getTags()));
 	}
 
