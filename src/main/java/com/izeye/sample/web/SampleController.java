@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
+
+import com.izeye.sample.service.SampleService;
+import io.micrometer.core.annotation.Timed;
 
 /**
  * Sample {@link RestController}.
@@ -18,11 +20,12 @@ import org.springframework.web.client.RestTemplate;
 public class SampleController {
 
 	@Autowired
-	private RestTemplate restTemplate;
+	private SampleService sampleService;
 
+	@Timed("sample.controller")
 	@GetMapping("/call-rest-template")
 	public Map<String, Object> callRestTemplate() {
-		return this.restTemplate.getForObject("https://spring.io/info", Map.class);
+		return this.sampleService.callRestTemplate();
 	}
 
 }
