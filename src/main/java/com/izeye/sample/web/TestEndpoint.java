@@ -2,6 +2,7 @@ package com.izeye.sample.web;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 
 import org.springframework.stereotype.Component;
 
@@ -15,8 +16,9 @@ import org.springframework.stereotype.Component;
 public class TestEndpoint {
 
 	@GET
-	public String message() {
-		return "Hello";
+	@Path("/{name}")
+	public String message(@PathParam("name") String name) {
+		return "Hello, " + name + "!";
 	}
 
 }
