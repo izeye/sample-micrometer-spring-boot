@@ -6,7 +6,9 @@ import java.util.concurrent.TimeUnit;
 import io.micrometer.core.instrument.Clock;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Tags;
+import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.step.StepCounter;
+import io.micrometer.core.instrument.step.StepTimer;
 import io.micrometer.influx.InfluxConfig;
 import io.micrometer.influx.InfluxMeterRegistry;
 import org.junit.Test;
@@ -49,6 +51,24 @@ public class InfluxMeterRegistryTests {
 
 		TimeUnit.SECONDS.sleep(5);
 		assertThat(counter.count()).isEqualTo(0);
+	}
+
+	@Test
+	public void timerSample() throws InterruptedException {
+		Timer.Sample sample = Timer.start(this.registry);
+
+		TimeUnit.SECONDS.sleep(1);
+
+		Timer timer = this.registry.timer("my.timer", "response", "200");
+		assertThat(timer).isExactlyInstanceOf(StepTimer.class);
+
+		sample.stop(timer);
+		assertThat(timer.count()).isEqualTo(0);
+		assertThat(timer.totalTime(TimeUnit.SECONDS)).isEqualTo(0);
+
+		TimeUnit.SECONDS.sleep(5);
+		assertThat(timer.count()).isEqualTo(1);
+		assertThat(Math.floor(timer.totalTime(TimeUnit.SECONDS))).isEqualTo(1);
 	}
 
 }
