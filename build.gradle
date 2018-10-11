@@ -27,8 +27,17 @@ repositories {
     maven { url "http://repo.spring.io/snapshot" }
 }
 
+configurations {
+    compile.exclude module: 'spring-boot-starter-tomcat'
+}
+
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")
+    // NOTE: Tomcat exclusion works only when there is an empty block.
+    // I don't know why.
+    compile("org.springframework.boot:spring-boot-starter-web") {
+    }
+    
+    compile("org.springframework.boot:spring-boot-starter-jetty")
     compile("org.springframework.boot:spring-boot-starter-actuator")
 
     compile("io.micrometer:micrometer-spring-legacy:$micrometerVersion")
