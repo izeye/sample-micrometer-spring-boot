@@ -7,13 +7,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- * Tests for {@link Application}.
+ * Tests for {@link Application} with random port web environment.
  *
  * @author Johnny Lim
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest
-public class ApplicationTests {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class ApplicationWebEnvironmentRandomPortTests {
 
 	@Test
 	public void test() {
