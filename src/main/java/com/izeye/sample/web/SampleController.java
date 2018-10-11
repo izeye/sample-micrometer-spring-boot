@@ -5,8 +5,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
+import com.izeye.sample.service.SampleService;
 
 /**
  * Sample {@link RestController}.
@@ -20,9 +23,17 @@ public class SampleController {
 	@Autowired
 	private RestTemplate restTemplate;
 
+	@Autowired
+	private SampleService sampleService;
+
 	@GetMapping("/call-rest-template")
 	public Map<String, Object> callRestTemplate() {
 		return this.restTemplate.getForObject("https://spring.io/info", Map.class);
+	}
+
+	@GetMapping("/hello")
+	public String sayHello(@RequestParam String name) {
+		return this.sampleService.sayHello(name);
 	}
 
 }
