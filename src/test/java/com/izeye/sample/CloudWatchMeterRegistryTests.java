@@ -2,6 +2,7 @@ package com.izeye.sample;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import com.amazonaws.services.cloudwatch.AmazonCloudWatchAsync;
@@ -51,7 +52,7 @@ public class CloudWatchMeterRegistryTests {
 		AmazonCloudWatchAsync amazonCloudWatchAsync = mock(AmazonCloudWatchAsync.class);
 
 		CloudWatchMeterRegistry registry = new CloudWatchMeterRegistry(config, Clock.SYSTEM, amazonCloudWatchAsync);
-		registry.start();
+		registry.start(Executors.defaultThreadFactory());
 
 		long value = 42L;
 
