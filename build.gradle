@@ -21,17 +21,22 @@ apply plugin: 'io.spring.dependency-management'
 sourceCompatibility = 1.8
 
 repositories {
+    mavenLocal()
     jcenter()
     maven { url "http://repo.spring.io/libs-release" }
     maven { url "http://repo.spring.io/libs-milestone" }
     maven { url "http://repo.spring.io/snapshot" }
 }
 
+
+//ext['micrometer.version'] = '1.2.0-SNAPSHOT'
+
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
 
     compile("io.micrometer:micrometer-registry-graphite")
+//    compile("io.micrometer:micrometer-registry-prometheus")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
