@@ -33,7 +33,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
 
     compile("io.micrometer:micrometer-spring-legacy:$micrometerVersion")
-    compile("io.micrometer:micrometer-registry-prometheus:$micrometerVersion")
+    compile("io.micrometer:micrometer-registry-graphite:$micrometerVersion")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
