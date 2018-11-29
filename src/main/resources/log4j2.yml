@@ -1,0 +1,22 @@
+Configutation:
+  name: Default
+
+  Appenders:
+    Console:
+      name: Console_Appender
+      target: SYSTEM_OUT
+      PatternLayout:
+        pattern: "%highlight{[%-5level]} %d{DEFAULT}{GMT+3} %style{%c{8}}{blue} - %style{%msg%n}{white}"
+
+  Loggers:
+    Root:
+      level: info
+      AppenderRef:
+      - ref: Console_Appender
+
+    Logger:
+    - name: com.izeye.sample.web
+      additivity: false
+      level: info
+      AppenderRef:
+      - ref: Console_Appender
