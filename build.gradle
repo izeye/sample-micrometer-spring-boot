@@ -29,10 +29,14 @@ repositories {
 }
 
 //ext['micrometer.version'] = '1.0.10-SNAPSHOT'
+ext['micrometer.version'] = '1.2.0-SNAPSHOT'
+ext['caffeine.version'] = '2.7.0'
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
+
+    compile("com.github.ben-manes.caffeine:caffeine")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
