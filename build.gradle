@@ -33,7 +33,8 @@ repositories {
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
-    compile("io.micrometer:micrometer-registry-stackdriver:1.1.3")
+//    compile("io.micrometer:micrometer-registry-stackdriver:1.1.3")
+    compile("io.micrometer:micrometer-registry-stackdriver:1.2.0-SNAPSHOT")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
