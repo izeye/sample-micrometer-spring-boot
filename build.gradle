@@ -33,6 +33,8 @@ repositories {
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-cache")
+    compile("com.github.ben-manes.caffeine:caffeine")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
