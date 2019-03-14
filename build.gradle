@@ -32,6 +32,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
 
     compile("io.micrometer:micrometer-registry-statsd")
+    compile("org.apache.kafka:kafka-clients")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
