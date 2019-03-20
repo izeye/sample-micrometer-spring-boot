@@ -30,10 +30,10 @@ public class MicrometerConfig {
 				return System.getProperty("projectId");
 			}
 
-			@Override
-			public Duration step() {
-				return Duration.ofSeconds(5);
-			}
+//			@Override
+//			public Duration step() {
+//				return Duration.ofSeconds(5);
+//			}
 
 		};
 	}
