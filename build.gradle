@@ -32,6 +32,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
 
     compile("io.micrometer:micrometer-registry-datadog")
+    compile("io.github.resilience4j:resilience4j-retry:${resilience4jVersion}")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
