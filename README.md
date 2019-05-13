@@ -7,3 +7,9 @@
 ```
 $ curl http://localhost:9200/_cat/indices?v
 ```
+
+* Get mapping for index
+
+```
+$ curl http://localhost:9200/metrics-2019-05/_mapping?pretty
+```
