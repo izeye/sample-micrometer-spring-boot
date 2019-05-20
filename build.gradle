@@ -32,9 +32,12 @@ repositories {
 
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
-	compile("org.springframework.boot:spring-boot-starter-jdbc")
-    compile("org.springframework.boot:spring-boot-starter-actuator")
+	compile("org.springframework.boot:spring-boot-starter-jdbc") {
+		exclude group: 'com.zaxxer', module: 'HikariCP'
+	}
+	compile("org.apache.tomcat:tomcat-jdbc")
 	compile("com.h2database:h2")
+	compile("org.springframework.boot:spring-boot-starter-actuator")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
