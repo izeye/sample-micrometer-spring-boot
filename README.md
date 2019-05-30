@@ -3,7 +3,7 @@
 ## Issues
 
 * [Micrometer #657](https://github.com/micrometer-metrics/micrometer/issues/657)
-  * Deploying this application in a standalone Tomcat and then stopping it causes the following logs:
+  * Deploying this application in a standalone Tomcat and then stopping it causes the following logs in `logs/catalina.out`:
 
 ```
 2019-05-30 17:14:53.700  INFO 28101 --- [io-8080-exec-14] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
