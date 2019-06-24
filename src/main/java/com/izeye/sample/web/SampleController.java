@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import io.micrometer.core.instrument.Counter;
+
 /**
  * Sample {@link RestController}.
  *
@@ -20,8 +22,12 @@ public class SampleController {
 	@Autowired
 	private RestTemplate restTemplate;
 
+	@Autowired
+	private Counter myCounter;
+
 	@GetMapping("/call-rest-template")
 	public Map<String, Object> callRestTemplate() {
+		this.myCounter.increment();
 		return this.restTemplate.getForObject("https://spring.io/info", Map.class);
 	}
 
