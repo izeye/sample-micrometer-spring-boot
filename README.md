@@ -26,6 +26,12 @@ $ curl -XDELETE http://localhost:9200/metrics-2019-05
 $ curl -XPOST --header "Content-Type: application/json" --data-binary "@request_body.txt" http://localhost:9200/metrics-2019-05/doc/_bulk
 ```
 
+* Get all index templates:
+
+```
+$ curl http://localhost:9200/_template?pretty
+```
+
 * Get a specific index template:
 
 ```
