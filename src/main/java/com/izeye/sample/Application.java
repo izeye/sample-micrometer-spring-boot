@@ -20,6 +20,8 @@ public class Application {
 				.route(p -> p.path("/get")
 						.filters(f -> f.addRequestHeader("Hello", "World"))
 						.uri("http://httpbin.org:80/get"))
+				.route(p -> p.path("/status/304")
+						.uri("http://httpbin.org:80/status/304"))
 				.build();
 	}
 
