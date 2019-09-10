@@ -33,6 +33,7 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
     compile("org.springframework.boot:spring-boot-starter-cache")
     compile("net.sf.ehcache:ehcache")
+    compile("io.micrometer:micrometer-registry-datadog")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
