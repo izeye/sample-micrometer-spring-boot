@@ -1,5 +1,8 @@
 package com.izeye.sample.config;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import org.springframework.boot.actuate.health.*;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,26 +18,46 @@ import io.micrometer.core.instrument.MeterRegistry;
 public class HealthMetricsConfig {
 
 	public HealthMetricsConfig(
-			HealthAggregator healthAggregator, HealthIndicatorRegistry healthIndicatorRegistry,
+			StatusAggregator statusAggregator, HealthContributorRegistry healthContributorRegistry,
 			MeterRegistry meterRegistry) {
-		CompositeHealthIndicator healthIndicator = new CompositeHealthIndicator(healthAggregator, healthIndicatorRegistry);
-		Gauge.builder("health", healthIndicator, this::getValue)
+		HealthMetricsProvider healthMetricsProvider = new HealthMetricsProvider(
+				healthContributorRegistry, statusAggregator);
+		Gauge.builder("health", healthMetricsProvider, HealthMetricsProvider::getValue)
 				.strongReference(true)
 				.register(meterRegistry);
 	}
 
-	private double getValue(CompositeHealthIndicator healthIndicator) {
-		switch (healthIndicator.health().getStatus().getCode()) {
-			case "UP":
-				return 3;
-			case "OUT_OF_SERVICE":
-				return 2;
-			case "DOWN":
-				return 1;
-			case "UNKNOWN":
-			default:
-				return 0;
+	private static class HealthMetricsProvider {
+
+		private final HealthContributorRegistry healthContributorRegistry;
+		private final StatusAggregator statusAggregator;
+
+		HealthMetricsProvider(HealthContributorRegistry healthContributorRegistry, StatusAggregator statusAggregator) {
+			this.healthContributorRegistry = healthContributorRegistry;
+			this.statusAggregator = statusAggregator;
 		}
+
+		private double getValue() {
+			Set<Status> statuses = this.healthContributorRegistry.stream()
+					.map(NamedContributor::getContributor)
+					.filter(HealthIndicator.class::isInstance)
+					.map(HealthIndicator.class::cast)
+					.map((healthIndicator) -> healthIndicator.getHealth(false).getStatus())
+					.collect(Collectors.toSet());
+			Status aggregatedStatus = this.statusAggregator.getAggregateStatus(statuses);
+			switch (aggregatedStatus.getCode()) {
+				case "UP":
+					return 3;
+				case "OUT_OF_SERVICE":
+					return 2;
+				case "DOWN":
+					return 1;
+				case "UNKNOWN":
+				default:
+					return 0;
+			}
+		}
+
 	}
 
 }
