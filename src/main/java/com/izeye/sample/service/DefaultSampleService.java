@@ -25,7 +25,7 @@ public class DefaultSampleService implements SampleService {
 		this.restTemplate = restTemplate;
 
 		this.distributionSummary = DistributionSummary.builder("sample.value")
-				.publishPercentiles(0.5, 0.95, 0.99, 1)
+				.publishPercentiles(0.5, 0.75, 0.95, 0.99, 0.999)
 				.register(meterRegistry);
 	}
 
