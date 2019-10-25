@@ -28,13 +28,10 @@ repositories {
     maven { url "http://repo.spring.io/snapshot" }
 }
 
-//ext['micrometer.version'] = '1.0.10-SNAPSHOT'
-
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-actuator")
-//    compile("io.micrometer:micrometer-registry-stackdriver:1.1.3")
-    compile("io.micrometer:micrometer-registry-stackdriver:1.2.0-SNAPSHOT")
+    compile("io.micrometer:micrometer-registry-stackdriver")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
