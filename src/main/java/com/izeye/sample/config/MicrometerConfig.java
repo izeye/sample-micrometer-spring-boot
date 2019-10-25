@@ -1,7 +1,6 @@
 package com.izeye.sample.config;
 
-import java.time.Duration;
-
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,7 +16,7 @@ import io.micrometer.stackdriver.StackdriverMeterRegistry;
 public class MicrometerConfig {
 
 	@Bean
-	public StackdriverConfig stackdriverConfig() {
+	public StackdriverConfig stackdriverConfig(@Value("${stackdriver.project-id}") String projectId) {
 		return new StackdriverConfig() {
 
 			@Override
@@ -27,13 +26,8 @@ public class MicrometerConfig {
 
 			@Override
 			public String projectId() {
-				return System.getProperty("projectId");
+				return projectId;
 			}
-
-//			@Override
-//			public Duration step() {
-//				return Duration.ofSeconds(5);
-//			}
 
 		};
 	}
