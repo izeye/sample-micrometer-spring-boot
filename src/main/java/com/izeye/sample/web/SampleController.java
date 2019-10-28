@@ -2,11 +2,11 @@ package com.izeye.sample.web;
 
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
+
+import com.izeye.sample.service.SampleService;
 
 /**
  * Sample {@link RestController}.
@@ -17,12 +17,15 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping(path = "/sample")
 public class SampleController {
 
-	@Autowired
-	private RestTemplate restTemplate;
+	private final SampleService service;
 
-	@GetMapping("/call-rest-template")
-	public Map<String, Object> callRestTemplate() {
-		return this.restTemplate.getForObject("https://spring.io/info", Map.class);
+	public SampleController(SampleService service) {
+		this.service = service;
+	}
+
+	@GetMapping("/doService")
+	public Map<String, Object> doService() {
+		return this.service.doService();
 	}
 
 }

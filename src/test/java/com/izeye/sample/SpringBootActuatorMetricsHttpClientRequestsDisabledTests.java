@@ -34,7 +34,7 @@ public class SpringBootActuatorMetricsHttpClientRequestsDisabledTests {
 		ResponseEntity<Map> responseEntity = this.restTemplate.exchange("/actuator/metrics/http.client.requests", HttpMethod.GET, null, Map.class);
 		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
 
-		Map<String, Object> response = this.restTemplate.getForObject("/sample/call-rest-template", Map.class);
+		Map<String, Object> response = this.restTemplate.getForObject("/sample/doService", Map.class);
 		assertThat((Map<String, Object>) response.get("build")).containsEntry("artifact", "spring-io");
 		
 		responseEntity = this.restTemplate.exchange("/actuator/metrics/http.client.requests", HttpMethod.GET, null, Map.class);
