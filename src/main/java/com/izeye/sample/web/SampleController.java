@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Timer;
+
 /**
  * Sample {@link RestController}.
  *
@@ -18,13 +21,22 @@ public class SampleController {
 
 	private final RestTemplate restTemplate;
 
-	public SampleController(RestTemplate restTemplate) {
+	private final Timer timer;
+
+	public SampleController(RestTemplate restTemplate, MeterRegistry meterRegistry) {
 		this.restTemplate = restTemplate;
+		this.timer = meterRegistry.timer("my.timer");
 	}
 
 	@GetMapping("/call-rest-template")
 	public Map<String, Object> callRestTemplate() {
-		return this.restTemplate.getForObject("https://spring.io/info", Map.class);
+		Timer.Sample sample = Timer.start();
+		try {
+			return this.restTemplate.getForObject("https://spring.io/info", Map.class);
+		}
+		finally {
+			sample.stop(this.timer);
+		}
 	}
 
 }
