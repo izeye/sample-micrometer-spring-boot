@@ -5,8 +5,7 @@ import java.util.Arrays;
 import java.util.Properties;
 import java.util.concurrent.Executors;
 
-import javax.annotation.PostConstruct;
-
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import org.apache.kafka.clients.consumer.Consumer;
@@ -28,7 +27,7 @@ import static org.apache.kafka.clients.consumer.ConsumerConfig.VALUE_DESERIALIZE
 @Service
 public class KafkaService {
 
-	@PostConstruct
+	@Scheduled(fixedRate = 5_000)
 	public void startConsumer() {
 		Executors.newSingleThreadExecutor().submit(() -> {
 			Properties properties = new Properties();
@@ -39,12 +38,10 @@ public class KafkaService {
 
 			try (Consumer<String, String> consumer = new KafkaConsumer<>(properties)) {
 				consumer.subscribe(Arrays.asList("my-topic"));
-				while (true) {
-					ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
-					for (ConsumerRecord<String, String> record : records) {
-						System.out.printf("Offset = %d, key = %s, value = %s%n",
-								record.offset(), record.key(), record.value());
-					}
+				ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
+				for (ConsumerRecord<String, String> record : records) {
+					System.out.printf("Offset = %d, key = %s, value = %s%n",
+							record.offset(), record.key(), record.value());
 				}
 			}
 		});
