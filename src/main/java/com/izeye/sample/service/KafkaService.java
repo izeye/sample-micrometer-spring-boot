@@ -37,13 +37,14 @@ public class KafkaService {
 			properties.setProperty(KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
 			properties.setProperty(VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
 
-			Consumer<String, String> consumer = new KafkaConsumer<>(properties);
-			consumer.subscribe(Arrays.asList("my-topic"));
-			while (true) {
-				ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
-				for (ConsumerRecord<String, String> record : records) {
-					System.out.printf("Offset = %d, key = %s, value = %s%n",
-							record.offset(), record.key(), record.value());
+			try (Consumer<String, String> consumer = new KafkaConsumer<>(properties)) {
+				consumer.subscribe(Arrays.asList("my-topic"));
+				while (true) {
+					ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
+					for (ConsumerRecord<String, String> record : records) {
+						System.out.printf("Offset = %d, key = %s, value = %s%n",
+								record.offset(), record.key(), record.value());
+					}
 				}
 			}
 		});
