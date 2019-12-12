@@ -29,10 +29,12 @@ public class DefaultSampleService implements SampleService {
 
 		this.timer = Timer.builder("sample.time")
 				.publishPercentiles(0.5, 0.75, 0.95, 0.99, 0.999)
+				.publishPercentileHistogram()
 				.register(meterRegistry);
 
 		this.distributionSummary = DistributionSummary.builder("sample.value")
 				.publishPercentiles(0.5, 0.75, 0.95, 0.99, 0.999)
+				.publishPercentileHistogram()
 				.register(meterRegistry);
 	}
 
