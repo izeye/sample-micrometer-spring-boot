@@ -3,6 +3,7 @@ package com.izeye.sample.service;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -38,10 +39,13 @@ public class DefaultSampleService implements SampleService {
 				.register(meterRegistry);
 	}
 
+	@Scheduled(fixedDelay = 1_000)
+	public void recordDistributionSummary() {
+		this.distributionSummary.record(ThreadLocalRandom.current().nextDouble() * 100);
+	}
+
 	@Override
 	public Map<String, Object> doService() {
-		this.distributionSummary.record(ThreadLocalRandom.current().nextDouble() * 100);
-
 		Timer.Sample sample = Timer.start();
 		try {
 			return this.restTemplate.getForObject("https://spring.io/info", Map.class);
