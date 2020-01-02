@@ -38,6 +38,7 @@ public class DefaultSampleService implements SampleService {
 				.publishPercentileHistogram()
 				.minimumExpectedValue(10L)
 				.maximumExpectedValue(10_000L)
+				.sla(200)
 				.register(meterRegistry);
 	}
 
