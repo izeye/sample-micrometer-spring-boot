@@ -36,6 +36,8 @@ public class DefaultSampleService implements SampleService {
 		this.distributionSummary = DistributionSummary.builder("sample.value")
 				.publishPercentiles(0.5, 0.75, 0.95, 0.99, 0.999)
 				.publishPercentileHistogram()
+				.minimumExpectedValue(10L)
+				.maximumExpectedValue(10_000L)
 				.register(meterRegistry);
 	}
 
