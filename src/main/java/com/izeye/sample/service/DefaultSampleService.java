@@ -58,4 +58,9 @@ public class DefaultSampleService implements SampleService {
 		}
 	}
 
+	@Override
+	public String doProxy(String url) {
+		return this.restTemplate.getForObject(url, String.class);
+	}
+
 }

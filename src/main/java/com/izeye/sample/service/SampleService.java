@@ -11,4 +11,6 @@ public interface SampleService {
 
 	Map<String, Object> doService();
 
+	String doProxy(String url);
+
 }
