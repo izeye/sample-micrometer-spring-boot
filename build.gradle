@@ -38,6 +38,9 @@ dependencies {
     compile("io.micrometer:micrometer-registry-elastic")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
+
+    testCompileOnly("org.projectlombok:lombok")
+    testAnnotationProcessor("org.projectlombok:lombok")
 }
 
 wrapper {
