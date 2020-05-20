@@ -3,6 +3,9 @@ package com.izeye.sample.service;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,6 +20,9 @@ import io.micrometer.core.instrument.Timer;
  */
 @Service
 public class DefaultSampleService implements SampleService {
+
+	private static final ParameterizedTypeReference<Map<String, Object>> MAP_STRING_OBJECT = new ParameterizedTypeReference<Map<String, Object>>() {
+	};
 
 	private final RestTemplate restTemplate;
 
@@ -42,7 +48,9 @@ public class DefaultSampleService implements SampleService {
 
 		Timer.Sample sample = Timer.start();
 		try {
-			return this.restTemplate.getForObject("https://spring.io/info", Map.class);
+			ResponseEntity<Map<String, Object>> responseEntity = this.restTemplate.exchange(
+					"https://spring.io/info", HttpMethod.GET, null, MAP_STRING_OBJECT);
+			return responseEntity.getBody();
 		}
 		finally {
 			sample.stop(this.timer);
