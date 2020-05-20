@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import io.micrometer.core.instrument.DistributionSummary;
+import io.micrometer.core.instrument.LongTaskTimer;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
 
@@ -30,6 +31,8 @@ public class DefaultSampleService implements SampleService {
 
 	private final DistributionSummary distributionSummary;
 
+	private final LongTaskTimer longTaskTimer;
+
 	public DefaultSampleService(RestTemplate restTemplate, MeterRegistry meterRegistry) {
 		this.restTemplate = restTemplate;
 
@@ -40,6 +43,9 @@ public class DefaultSampleService implements SampleService {
 		this.distributionSummary = DistributionSummary.builder("sample.value")
 				.publishPercentiles(0.5, 0.75, 0.95, 0.99, 0.999)
 				.register(meterRegistry);
+
+		this.longTaskTimer = LongTaskTimer.builder("sample.long.task.timer")
+				.register(meterRegistry);
 	}
 
 	@Override
@@ -47,6 +53,8 @@ public class DefaultSampleService implements SampleService {
 		this.distributionSummary.record(ThreadLocalRandom.current().nextDouble() * 100);
 
 		Timer.Sample sample = Timer.start();
+
+		LongTaskTimer.Sample longTaskTimerSample = this.longTaskTimer.start();
 		try {
 			ResponseEntity<Map<String, Object>> responseEntity = this.restTemplate.exchange(
 					"https://spring.io/info", HttpMethod.GET, null, MAP_STRING_OBJECT);
@@ -54,6 +62,8 @@ public class DefaultSampleService implements SampleService {
 		}
 		finally {
 			sample.stop(this.timer);
+
+			longTaskTimerSample.stop();
 		}
 	}
 

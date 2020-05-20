@@ -28,7 +28,7 @@ repositories {
     maven { url "https://repo.spring.io/snapshot" }
 }
 
-//ext['micrometer.version'] = '1.0.10-SNAPSHOT'
+ext['micrometer.version'] = '1.5.2-SNAPSHOT'
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
