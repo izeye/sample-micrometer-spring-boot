@@ -1,5 +1,7 @@
 package com.izeye.sample.config;
 
+import java.time.Duration;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,8 +17,23 @@ import io.micrometer.opentsdb.OpenTSDBMeterRegistry;
 public class MetricsConfig {
 
 	@Bean
-	public OpenTSDBMeterRegistry openTSDBMeterRegistry() {
-		return OpenTSDBMeterRegistry.builder(OpenTSDBConfig.DEFAULT).build();
+	public OpenTSDBConfig openTSDBConfig() {
+		return new OpenTSDBConfig() {
+			@Override
+			public String get(String key) {
+				return null;
+			}
+
+			@Override
+			public Duration step() {
+				return Duration.ofSeconds(5);
+			}
+		};
+	}
+
+	@Bean
+	public OpenTSDBMeterRegistry openTSDBMeterRegistry(OpenTSDBConfig openTSDBConfig) {
+		return OpenTSDBMeterRegistry.builder(openTSDBConfig).build();
 	}
 
 }
