@@ -3,6 +3,9 @@ package com.izeye.sample.service;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -18,6 +21,9 @@ import io.micrometer.core.instrument.Timer;
  */
 @Service
 public class DefaultSampleService implements SampleService {
+
+	private static final ParameterizedTypeReference<Map<String, Object>> MAP_STRING_OBJECT = new ParameterizedTypeReference<Map<String, Object>>() {
+	};
 
 	private final RestTemplate restTemplate;
 
@@ -36,9 +42,9 @@ public class DefaultSampleService implements SampleService {
 		this.distributionSummary = DistributionSummary.builder("sample.value")
 				.publishPercentiles(0.5, 0.75, 0.95, 0.99, 0.999)
 				.publishPercentileHistogram()
-				.minimumExpectedValue(10L)
-				.maximumExpectedValue(10_000L)
-				.sla(200)
+				.minimumExpectedValue(10d)
+				.maximumExpectedValue(10_000d)
+				.serviceLevelObjectives(200d)
 				.register(meterRegistry);
 	}
 
@@ -51,7 +57,9 @@ public class DefaultSampleService implements SampleService {
 	public Map<String, Object> doService() {
 		Timer.Sample sample = Timer.start();
 		try {
-			return this.restTemplate.getForObject("https://spring.io/info", Map.class);
+			ResponseEntity<Map<String, Object>> responseEntity = this.restTemplate.exchange(
+					"https://spring.io/info", HttpMethod.GET, null, MAP_STRING_OBJECT);
+			return responseEntity.getBody();
 		}
 		finally {
 			sample.stop(this.timer);
