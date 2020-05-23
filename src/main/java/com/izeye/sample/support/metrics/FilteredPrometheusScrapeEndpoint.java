@@ -21,7 +21,7 @@ import io.prometheus.client.exporter.common.TextFormat;
  * @author Johnny Lim
  */
 @Component
-@WebEndpoint(id = "filtered-prometheus")
+@WebEndpoint(id = "filteredPrometheus")
 public class FilteredPrometheusScrapeEndpoint  {
 
 	private final CollectorRegistry collectorRegistry;
