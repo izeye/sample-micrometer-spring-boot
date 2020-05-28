@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.DistributionSummary;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
@@ -31,6 +32,9 @@ public class DefaultSampleService implements SampleService {
 
 	private final DistributionSummary distributionSummary;
 
+	private final Counter counter1;
+	private final Counter counter2;
+
 	public DefaultSampleService(RestTemplate restTemplate, MeterRegistry meterRegistry) {
 		this.restTemplate = restTemplate;
 
@@ -45,6 +49,11 @@ public class DefaultSampleService implements SampleService {
 				.minimumExpectedValue(10d)
 				.maximumExpectedValue(10_000d)
 				.serviceLevelObjectives(200d)
+				.register(meterRegistry);
+
+		this.counter1 = Counter.builder("sample.counter").tags("key1", "value1").
+				register(meterRegistry);
+		this.counter2 = Counter.builder("sample.counter").tags("key1", "value1", "key2", "value2")
 				.register(meterRegistry);
 	}
 
