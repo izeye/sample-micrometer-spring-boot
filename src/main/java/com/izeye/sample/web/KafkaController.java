@@ -56,7 +56,7 @@ public class KafkaController {
 				properties.setProperty(VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
 
 				Consumer<String, String> consumer = new KafkaConsumer<>(properties);
-				consumer.subscribe(Arrays.asList("my-topic"));
+				consumer.subscribe(Arrays.asList("my-topic-" + id));
 
 				new KafkaClientMetrics(consumer).bindTo(meterRegistry);
 
