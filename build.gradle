@@ -35,7 +35,6 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-actuator")
 
     compile("io.micrometer:micrometer-registry-graphite")
-//    compile("io.micrometer:micrometer-registry-prometheus")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
 }
