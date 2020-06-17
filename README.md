@@ -89,4 +89,5 @@ tomcat_sessions_alive_max,metric_type=gauge
 tomcat_sessions_created,metric_type=counter
 tomcat_sessions_expired,metric_type=counter
 tomcat_sessions_rejected,metric_type=counter
+> 
 ```
