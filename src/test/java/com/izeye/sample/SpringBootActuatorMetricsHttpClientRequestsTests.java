@@ -9,11 +9,8 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
+import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -21,9 +18,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Johnny Lim
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class SpringBootActuatorMetricsHttpClientRequestsTests {
+class SpringBootActuatorMetricsHttpClientRequestsTests {
 
 	private static final ParameterizedTypeReference<Map<String, Object>> MAP_STRING_OBJECT = new ParameterizedTypeReference<Map<String, Object>>() {
 	};
@@ -32,7 +28,7 @@ public class SpringBootActuatorMetricsHttpClientRequestsTests {
 	private TestRestTemplate restTemplate;
 
 	@Test
-	public void test() {
+	void test() {
 		ResponseEntity<Map<String, Object>> responseEntity = this.restTemplate.exchange(
 				"/actuator/metrics/http.client.requests", HttpMethod.GET, null, MAP_STRING_OBJECT);
 		assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);

@@ -37,6 +37,10 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
+test {
+    useJUnitPlatform()
+}
+
 tasks.withType(JavaCompile) {
     options.compilerArgs += ['-Xlint:unchecked', '-Xlint:deprecation', '-parameters']
 }
