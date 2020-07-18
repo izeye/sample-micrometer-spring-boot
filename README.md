@@ -23,15 +23,15 @@ $ docker exec -it my-statsd bash
 root@2cc94abd299d:~# influx
 Connected to http://localhost:8086 version 1.7.10
 InfluxDB shell version: 1.7.10
-> show databases
+> SHOW DATABASES
 name: databases
 name
 ----
 _internal
 telegraf
-> use telegraf
+> USE telegraf
 Using database telegraf
-> show series
+> SHOW SERIES
 key
 ---
 cpu,cpu=cpu-total,host=392677e895bc
@@ -110,5 +110,70 @@ tomcat_sessions_alive_max,host=392677e895bc,metric_type=gauge,statistic=value
 tomcat_sessions_created,host=392677e895bc,metric_type=counter,statistic=count
 tomcat_sessions_expired,host=392677e895bc,metric_type=counter,statistic=count
 tomcat_sessions_rejected,host=392677e895bc,metric_type=counter,statistic=count
-> 
+> SHOW MEASUREMENTS
+name: measurements
+name
+----
+cpu
+disk
+diskio
+hikaricp_connections
+hikaricp_connections_acquire
+hikaricp_connections_active
+hikaricp_connections_idle
+hikaricp_connections_max
+hikaricp_connections_min
+hikaricp_connections_pending
+hikaricp_connections_usage
+jdbc_connections_active
+jdbc_connections_idle
+jdbc_connections_max
+jdbc_connections_min
+jvm_buffer_count
+jvm_buffer_memory_used
+jvm_buffer_total_capacity
+jvm_classes_loaded
+jvm_classes_unloaded
+jvm_gc_live_data_size
+jvm_gc_max_data_size
+jvm_gc_memory_allocated
+jvm_gc_memory_promoted
+jvm_gc_pause
+jvm_memory_committed
+jvm_memory_max
+jvm_memory_used
+jvm_threads_daemon
+jvm_threads_live
+jvm_threads_peak
+jvm_threads_states
+kernel
+logback_events
+mem
+process_cpu_usage
+process_files_max
+process_files_open
+process_start_time
+process_uptime
+processes
+swap
+system
+system_cpu_count
+system_cpu_usage
+system_load_average_1m
+tomcat_sessions_active_current
+tomcat_sessions_active_max
+tomcat_sessions_alive_max
+tomcat_sessions_created
+tomcat_sessions_expired
+tomcat_sessions_rejected
+> SELECT * FROM logback_events
+name: logback_events
+time                host         level metric_type statistic value
+----                ----         ----- ----------- --------- -----
+1595043302000000000 2368f8263878 debug counter     count     1
+1595043302000000000 2368f8263878 info  counter     count     12
+1595043302000000000 2368f8263878 warn  counter     count     1
+1595043311000000000 2368f8263878 debug counter     count     5
+1595043311000000000 2368f8263878 info  counter     count     9
+>
 ```
