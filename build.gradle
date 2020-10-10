@@ -32,12 +32,12 @@ repositories {
 //ext['micrometer.version'] = '1.2.0-SNAPSHOT'
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")
-    compile("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
 
-    compile("io.micrometer:micrometer-registry-elastic")
+    implementation("io.micrometer:micrometer-registry-elastic")
 
-    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 wrapper {
