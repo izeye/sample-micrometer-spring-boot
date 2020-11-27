@@ -49,7 +49,7 @@ public class DefaultSampleService implements SampleService {
 		Timer.Sample sample = Timer.start();
 		try {
 			ResponseEntity<Map<String, Object>> responseEntity = this.restTemplate.exchange(
-					"https://spring.io/info", HttpMethod.GET, null, MAP_STRING_OBJECT);
+					"https://spring.io/actuator/info", HttpMethod.GET, null, MAP_STRING_OBJECT);
 			return responseEntity.getBody();
 		}
 		finally {

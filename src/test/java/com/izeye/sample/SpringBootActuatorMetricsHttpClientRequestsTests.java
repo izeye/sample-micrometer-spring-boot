@@ -35,8 +35,8 @@ class SpringBootActuatorMetricsHttpClientRequestsTests {
 
 		responseEntity = this.restTemplate.exchange("/sample/doService", HttpMethod.GET, null, MAP_STRING_OBJECT);
 		@SuppressWarnings("unchecked")
-		Map<String, Object> build = (Map<String, Object>) responseEntity.getBody().get("build");
-		assertThat(build).containsEntry("artifact", "spring-io");
+		Map<String, Object> build = (Map<String, Object>) responseEntity.getBody().get("git");
+		assertThat(build).containsEntry("branch", "HEAD");
 
 		responseEntity = this.restTemplate.exchange(
 				"/actuator/metrics/http.client.requests", HttpMethod.GET, null, MAP_STRING_OBJECT);
