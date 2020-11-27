@@ -10,6 +10,12 @@ $ docker run -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.el
 
 ## Elasticsearch APIs
 
+* Get documents from metrics index:
+
+```
+$ curl http://localhost:9200/micrometer-metrics-2020-11/_search?pretty
+```
+
 * Get all indices:
 
 ```
