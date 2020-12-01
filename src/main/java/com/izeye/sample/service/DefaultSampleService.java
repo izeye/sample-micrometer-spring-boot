@@ -2,7 +2,6 @@ package com.izeye.sample.service;
 
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -18,8 +17,11 @@ import io.micrometer.core.annotation.Timed;
 @Service
 public class DefaultSampleService implements SampleService {
 
-	@Autowired
-	private RestTemplate restTemplate;
+	private final RestTemplate restTemplate;
+
+	public DefaultSampleService(RestTemplate restTemplate) {
+		this.restTemplate = restTemplate;
+	}
 
 	@Timed("sample.service")
 	@Override
