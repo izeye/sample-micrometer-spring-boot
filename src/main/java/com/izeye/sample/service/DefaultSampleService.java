@@ -3,6 +3,8 @@ package com.izeye.sample.service;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,7 +24,11 @@ public class DefaultSampleService implements SampleService {
 	@Timed("sample.service")
 	@Override
 	public Map<String, Object> callRestTemplate() {
-		return this.restTemplate.getForObject("https://spring.io/actuator/info", Map.class);
+		return this.restTemplate.exchange(
+				"https://spring.io/actuator/info",
+				HttpMethod.GET,
+				null,
+				new ParameterizedTypeReference<Map<String, Object>>() {}).getBody();
 	}
 
 }
