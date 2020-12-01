@@ -22,7 +22,7 @@ public class DefaultSampleService implements SampleService {
 	@Timed("sample.service")
 	@Override
 	public Map<String, Object> callRestTemplate() {
-		return this.restTemplate.getForObject("https://spring.io/info", Map.class);
+		return this.restTemplate.getForObject("https://spring.io/actuator/info", Map.class);
 	}
 
 }
