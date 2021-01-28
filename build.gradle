@@ -35,6 +35,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
 
     implementation("io.micrometer:micrometer-registry-prometheus")
+    implementation("io.prometheus:simpleclient_pushgateway")
 
     compileOnly("com.google.code.findbugs:jsr305:latest.release")
 
