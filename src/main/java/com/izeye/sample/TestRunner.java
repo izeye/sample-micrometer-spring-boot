@@ -25,11 +25,20 @@ public class TestRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
+        createExecutor("another.executor.service", Tags.of("key1", "value1"));
+
         for (int i = 0; i < 10; i++) {
-            ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(10);
-            new ExecutorServiceMetrics(scheduledThreadPoolExecutor, "my.executor.service." + i, Tags.empty())
-                    .bindTo(this.meterRegistry);
+            String executorServiceName = "my.executor.service." + i;
+            Tags tags = Tags.empty();
+
+            createExecutor(executorServiceName, tags);
         }
+    }
+
+    private void createExecutor(String executorServiceName, Tags tags) {
+        ScheduledThreadPoolExecutor scheduledThreadPoolExecutor = new ScheduledThreadPoolExecutor(10);
+        new ExecutorServiceMetrics(scheduledThreadPoolExecutor, executorServiceName, tags)
+                .bindTo(this.meterRegistry);
     }
 
 }
