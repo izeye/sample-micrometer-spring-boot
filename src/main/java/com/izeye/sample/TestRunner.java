@@ -1,5 +1,6 @@
 package com.izeye.sample;
 
+import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.binder.jvm.ExecutorServiceMetrics;
@@ -32,6 +33,13 @@ public class TestRunner implements ApplicationRunner {
             Tags tags = Tags.empty();
 
             createExecutor(executorServiceName, tags);
+        }
+
+        for (Meter meter : this.meterRegistry.getMeters()) {
+            Meter.Id id = meter.getId();
+            if (id.getName().startsWith("executor.")) {
+                System.out.println(id);
+            }
         }
     }
 
