@@ -8,7 +8,7 @@ buildscript {
     }
 
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.5.0-RC1")
     }
 }
 
@@ -37,6 +37,10 @@ dependencies {
     implementation("com.h2database:h2")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+
+test {
+    useJUnitPlatform()
 }
 
 wrapper {

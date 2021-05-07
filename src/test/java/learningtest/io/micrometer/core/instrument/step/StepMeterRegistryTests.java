@@ -8,7 +8,7 @@ import io.micrometer.core.instrument.Clock;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.step.StepMeterRegistry;
 import io.micrometer.core.instrument.step.StepRegistryConfig;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -17,7 +17,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  *
  * @author Johnny Lim
  */
-public class StepMeterRegistryTests {
+class StepMeterRegistryTests {
 
 	private final StepRegistryConfig config = new StepRegistryConfig() {
 
@@ -51,7 +51,7 @@ public class StepMeterRegistryTests {
 	};
 
 	@Test
-	public void find() throws InterruptedException {
+	void find() throws InterruptedException {
 		Counter myCounter1 = this.registry.counter("myTestCounter", "tag1", "value1");
 		Counter myCounter2 = this.registry.counter("myTestCounter", "tag2", "value2");
 		Counter myCounter1n2 = this.registry.counter("myTestCounter", "tag1", "value1", "tag2", "value2");
