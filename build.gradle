@@ -31,14 +31,14 @@ repositories {
 //ext['micrometer.version'] = '1.0.10-SNAPSHOT'
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")
-	compile("org.springframework.boot:spring-boot-starter-jdbc")
-    compile("org.springframework.boot:spring-boot-starter-actuator")
-	compile("com.h2database:h2")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-jdbc")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("com.h2database:h2")
 
-    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
 wrapper {
-    gradleVersion = '5.5'
+    gradleVersion = '7.0'
 }
