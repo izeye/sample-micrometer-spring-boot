@@ -8,8 +8,6 @@ buildscript {
     }
 
     dependencies {
-//        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.3.11.RELEASE")
-//        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.4.6")
         classpath("org.springframework.boot:spring-boot-gradle-plugin:2.5.0")
     }
 }
@@ -33,10 +31,13 @@ repositories {
 //ext['micrometer.version'] = '1.4.0-SNAPSHOT'
 
 dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
 
     implementation("io.micrometer:micrometer-registry-prometheus")
+
+    runtimeOnly("com.h2database:h2")
 
     compileOnly("com.google.code.findbugs:jsr305:latest.release")
 
