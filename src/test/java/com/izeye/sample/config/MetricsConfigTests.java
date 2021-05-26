@@ -7,6 +7,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Tests for {@link MetricsConfig}.
+ *
+ * @author Johnny Lim
+ */
 @SpringBootTest
 class MetricsConfigTests {
 
