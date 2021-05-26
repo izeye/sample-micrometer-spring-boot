@@ -8,6 +8,8 @@ buildscript {
     }
 
     dependencies {
+//        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.3.11.RELEASE")
+//        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.4.6")
         classpath("org.springframework.boot:spring-boot-gradle-plugin:2.5.0")
     }
 }
@@ -41,6 +43,10 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+
+test {
+    useJUnitPlatform()
 }
 
 tasks.withType(JavaCompile) {
