@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.izeye.sample.service.SampleService;
+import org.springframework.web.servlet.DispatcherServlet;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Sample {@link RestController}.
@@ -44,6 +47,12 @@ public class SampleController {
 	@GetMapping("/doProxy")
 	public String doProxy(@RequestParam String url) {
 		return this.service.doProxy(url);
+	}
+
+	@GetMapping("/setExceptionAttribute")
+	public String set(HttpServletRequest request) {
+		request.setAttribute(DispatcherServlet.EXCEPTION_ATTRIBUTE, new RuntimeException());
+		return "setExceptionAttribute";
 	}
 
 }
