@@ -3,6 +3,8 @@ package com.izeye.sample.service;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
+import io.micrometer.observation.annotation.Observed;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import io.micrometer.core.instrument.Timer;
  * @author Johnny Lim
  */
 @Service
+@Slf4j
 public class DefaultSampleService implements SampleService {
 
 	private static final ParameterizedTypeReference<Map<String, Object>> MAP_STRING_OBJECT = new ParameterizedTypeReference<Map<String, Object>>() {
@@ -42,8 +45,11 @@ public class DefaultSampleService implements SampleService {
 				.register(meterRegistry);
 	}
 
+	@Observed
 	@Override
 	public Map<String, Object> doService() {
+		log.info("Logging in DefaultSampleService...");
+
 		this.distributionSummary.record(ThreadLocalRandom.current().nextDouble() * 100);
 
 		Timer.Sample sample = Timer.start();
