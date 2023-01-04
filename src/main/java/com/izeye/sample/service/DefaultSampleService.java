@@ -3,6 +3,7 @@ package com.izeye.sample.service;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.izeye.sample.Logging;
 import io.micrometer.observation.annotation.Observed;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.ParameterizedTypeReference;
@@ -45,6 +46,7 @@ public class DefaultSampleService implements SampleService {
 				.register(meterRegistry);
 	}
 
+	@Logging
 	@Observed
 	@Override
 	public Map<String, Object> doService() {
